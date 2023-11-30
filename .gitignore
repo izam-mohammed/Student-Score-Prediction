@@ -1,0 +1,59 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+env/
+.venv/
+.env/
+
+# Logs and databases
+*.log
+*.sqlite
+*.db
+
+# Compiled Python files
+*.pyc
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Model files
+models/
+
+# Model checkpoints
+checkpoints/
+
+# Data files
+data/
+
+# Test and coverage directories
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache/
+
+# Documentation
+docs/_build/
+
+# Package distribution
+dist/
+build/
+*.egg-info/
+
+# Environment variable files
+.env
+
+# Visual Studio Code settings
+.vscode/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+Desktop.ini
