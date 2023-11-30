@@ -57,3 +57,6 @@ build/
 # Windows
 Thumbs.db
 Desktop.ini
+
+# ml related
+artifacts/
