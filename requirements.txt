@@ -2,4 +2,7 @@ pandas
 numpy
 sklearn
 seaborn
+scikit-learn
+catboost
+xgboost
 -e .
