@@ -63,6 +63,7 @@ class DataTransformation:
             return preprocessor
 
         except Exception as e:
+            logging.info(e)
             raise CustomException(e, sys)
 
     def initiate_data_transformation(self, train_path, test_path):
@@ -114,4 +115,5 @@ class DataTransformation:
             )
             
         except Exception as e:
+            logging.info(e)
             raise CustomException(e, sys)
