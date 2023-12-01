@@ -1,6 +1,9 @@
+import numpy as np
+
 import os
 import sys
 from dataclasses import dataclass
+from typing import Union
 
 from catboost import CatBoostRegressor
 from sklearn.ensemble import (
@@ -21,13 +24,24 @@ from src.utils import save_object, evaluate_model
 
 @dataclass
 class ModelTrainerConfig:
+    '''
+    Base class for Mode trainign configuration
+    '''
     trained_model_file_path = os.path.join("artifacts", "model.pkl")
     
 class ModelTrainer:
     def __init__(self) -> None:
         self.model_trainer_config = ModelTrainerConfig()
     
-    def initialize_model_trainer(self, train_arr, test_arr):
+    def initialize_model_trainer(
+        self, 
+        train_arr: np.array, 
+        test_arr: np.array,
+        )-> Union[int, float] :
+        '''
+        A function for initialize the training of model
+        '''
+        
         try:
             logging.info("split data into train and test array")
             X_train, y_train, X_test, y_test = (

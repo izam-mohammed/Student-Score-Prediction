@@ -11,7 +11,12 @@ from src.logger import logging
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import r2_score
 
-def save_object(file_path, obj):
+from typing import Any, Union
+
+def save_object(file_path: str, obj: Any) -> None:
+    '''
+    A function for save a pickle file
+    '''
     try:
         dir_path = os.path.dirname(file_path)
         
@@ -23,7 +28,18 @@ def save_object(file_path, obj):
     except Exception as e:
         CustomException(e, sys)
 
-def evaluate_model(X_train, y_train, X_test, y_test, models, params):
+def evaluate_model(
+    X_train: Union[pd.DataFrame, np.array], 
+    y_train: Union[pd.DataFrame, np.array], 
+    X_test: Union[pd.Series, np.array], 
+    y_test: Union[pd.Series, np.array], 
+    models: dict, 
+    params: dict,
+    ) -> dict:
+    '''
+    Evaluate a model as well as train with the data
+    '''
+    
     try:
         report = {}
         for i in range(len(list(models))):

@@ -1,15 +1,26 @@
 import sys
 import pandas as pd
+import numpy as np
+
 from src.exception import CustomException
 from src.logger import logging
 from src.utils import load_object
 
 
 class PredictPipeline:
+    '''
+    A pipeline for predict new data
+    '''
     def __init__(self) -> None:
         pass
     
-    def predict(self, features):
+    def predict(
+        self, 
+        features: pd.DataFrame
+        ) -> np.array:
+        '''
+        Method that responsible for the prediction
+        '''
         try:
             model_path = 'artifacts/model.pkl'
             preprocessor_path = 'artifacts/preprocessor.pkl'
@@ -24,6 +35,9 @@ class PredictPipeline:
             raise CustomException(e, sys)
         
 class CustomData:
+    '''
+    A class for convert data into dataframe
+    '''
     def __init__(
         self,
         gender:str,
@@ -43,7 +57,12 @@ class CustomData:
         self.reading_score = reading_score
         self.writing_score = writing_score
         
-    def get_data_as_data_frame(self):
+    def get_data_as_data_frame(
+        self
+        ) -> pd.DataFrame:
+        '''
+        Get data and returns a pd dataframe
+        '''
         try:
             custom_data_dict = {
                 "gender" : [self.gender],

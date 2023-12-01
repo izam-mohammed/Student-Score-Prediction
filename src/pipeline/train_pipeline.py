@@ -9,10 +9,16 @@ from src.components.data_transformation import DataTransformation
 from src.components.model_trainer import ModelTrainer
 
 class TrainingPipeline:
+    '''
+    A class for training the data pipeline
+    '''
     def __init__(self) -> None:
         pass
     
-    def train(self):
+    def train(self) -> None:
+        '''
+        Train the model
+        '''
         try:
             obj = DataIngestion()
             train_data, test_data = obj.initiate_data_ingestion()
@@ -27,7 +33,3 @@ class TrainingPipeline:
         except Exception as e:
             logging.info(e)
             raise CustomException(e, sys)
-        
-if __name__ == '__main__':
-    pipeline = TrainingPipeline()
-    pipeline.train()

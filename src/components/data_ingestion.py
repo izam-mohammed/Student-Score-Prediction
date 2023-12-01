@@ -11,17 +11,33 @@ from src.components.data_transformation import DataTransformation
 from src.components.data_transformation import DataTransformationconfig
 from src.components.model_trainer import ModelTrainer
 
+from typing import Tuple
+from typing_extensions import Annotated
+
 @dataclass
 class DataIngestionConfig:
+    '''
+    Config class for Data Ingestion
+    '''
     train_data_path: str=os.path.join('artifacts', 'train.csv')
     test_data_path: str=os.path.join('artifacts', 'test.csv')
     raw_data_path: str=os.path.join('artifacts','data.csv')
     
 class DataIngestion:
+    '''
+    Class that performs Data Ingestion
+    '''
     def __init__(self) -> None:
         self.ingestion_config = DataIngestionConfig()
         
-    def initiate_data_ingestion(self):
+    def initiate_data_ingestion(self) -> Tuple[
+        Annotated[str, "Trainig data path"],
+        Annotated[str, "Testing data path"],
+    ]:
+        '''
+        Initializing and preparing the data for preprocessing
+        '''
+        
         logging.info("Entered the data ingestion method or component")
         try:
             df = pd.read_csv('notebook/data/stud.csv')

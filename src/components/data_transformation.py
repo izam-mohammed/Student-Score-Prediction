@@ -13,15 +13,27 @@ from src.exception import CustomException
 from src.logger import logging
 from src.utils import save_object
 
+from typing import Type, Tuple
+from typing_extensions import Annotated
+
 @dataclass
 class DataTransformationconfig:
+    '''
+    Base Cofiguration class for Data Transformation
+    '''
     preprocessor_obj_file_path = os.path.join('artifacts', 'preprocessor.pkl')
     
 class DataTransformation:
+    '''
+    A class for performing transformation of data to train the model
+    '''
     def __init__(self) -> None:
         self.data_transformation_config = DataTransformationconfig()
         
-    def get_data_transformer_object(self):
+    def get_data_transformer_object(
+        self
+        ) -> Annotated[Type[ColumnTransformer], "preprocessor"]:
+        
         '''
         This function is responsible for data transformation
         '''
@@ -66,7 +78,18 @@ class DataTransformation:
             logging.info(e)
             raise CustomException(e, sys)
 
-    def initiate_data_transformation(self, train_path, test_path):
+    def initiate_data_transformation(
+        self, 
+        train_path: str, 
+        test_path: str
+        ) -> Tuple[
+            Annotated[np.array, "train_arr"],
+            Annotated[np.array, "test_arr"],
+            Annotated[str, "processor file path"]
+        ]:
+        '''
+        Applying the transformation to the dataset
+        '''
         try:
             train_df = pd.read_csv(train_path)
             test_df = pd.read_csv(test_path)
