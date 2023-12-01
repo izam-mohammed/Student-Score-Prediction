@@ -27,25 +27,25 @@ class DataTransformation:
         '''
         
         try:
-            numerical_features = ["writing_score", "reading_score"]
-            categorical_features = [
+            numerical_columns = ["writing_score", "reading_score"]
+            categorical_columns = [
                 "gender",
                 "race_ethnicity",
                 "parental_level_of_education",
                 "lunch",
-                "test_prepration_course",
+                "test_preparation_course",
             ]
+            
             num_pipeline = Pipeline(
                 steps=[
                     ("imputer", SimpleImputer(strategy="median")),
-                    ("scaler", StandardScaler())
+                    ("scaler", StandardScaler()),
                 ]
             )
             cat_pipeline=Pipeline(
                 steps=[
                     ("imputer", SimpleImputer(strategy='most_frequent')),
                     ("one_hot_encoder", OneHotEncoder()),
-                    ("scaler", StandardScaler())
                 ]
             )
             
@@ -54,14 +54,16 @@ class DataTransformation:
             
             preprocessor = ColumnTransformer(
                 [
-                    ("num_pipeline", num_pipeline, numerical_features),
-                    ("cat_pipeline", cat_pipeline, categorical_features),
+                    ("num_pipeline", num_pipeline, numerical_columns),
+                    ("cat_pipeline", cat_pipeline, categorical_columns),
                 ]
             )
+            logging.info("column transformation completed")
             
             return preprocessor
 
         except Exception as e:
+            logging.info(e)
             raise CustomException(e, sys)
 
     def initiate_data_transformation(self, train_path, test_path):
@@ -89,6 +91,7 @@ class DataTransformation:
             )
             
             input_feature_train_arr = preprocessing_obj.fit_transform(input_feature_train_df)
+                
             input_feature_test_arr = preprocessing_obj.fit_transform(input_feature_test_df)
             
             train_arr = np.c_[
